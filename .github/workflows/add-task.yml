@@ -1,4 +1,4 @@
-name: Microservices CI/CD
+name: Add task CI/CD
 
 on:
   push:
@@ -29,9 +29,9 @@ jobs:
         run: az acr login --name AppDeployentRegistry
 
       - name: Image Build
-        run: docker build -t moniuiimage:v1 MicroTodoUI
+        run: docker build -t addtaskimage:v1 AddTaskTodoMicroservice
       - name: tag image  
-        run : docker tag moniuiimage:v1 appdeployentregistry.azurecr.io/moniuiimage:v1 
+        run : docker tag addtaskimage:v1 appdeployentregistry.azurecr.io/addtaskimage:v1 
 
       - name: Push image to ACR
-        run: docker push appdeployentregistry.azurecr.io/moniuiimage:v1
+        run: docker push appdeployentregistry.azurecr.io/addtaskimage:v1

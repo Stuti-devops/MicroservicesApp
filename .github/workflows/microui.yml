@@ -23,7 +23,7 @@ jobs:
           client-id: c960d18f-0982-4911-b05c-58f2d7ed267d
           tenant-id: 0e1c81a8-6c88-4595-b678-60bce7c776f3
           subscription-id: a9d94a25-6447-4066-bea9-a2f8668c6597
-          auth-type: OIDC
+          
 
       - name: ACR Login
         run: az acr login --name AppDeployentRegistry

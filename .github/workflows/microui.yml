@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   buildandpush:
     name: Build and Push image to acr
-    runs-on: StutiRunnerAgent
+    runs-on: [ self-hosted ]
 
     steps:
       - name: Checkout

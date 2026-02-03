@@ -30,6 +30,8 @@ jobs:
 
       - name: Image Build
         run: docker build -t moniuiimage MicroTodoUI
+      - name: tag image  
+        run : docker tag appdeployentregistry.azurecr.io/moniuiimage:v1 
 
       - name: Push image to ACR
         run: docker push appdeployentregistry.azurecr.io/moniuiimage:v1

@@ -1,0 +1,33 @@
+name: Microservices CI/CD
+
+on:
+  push:
+    branches: []
+
+permissions: read-all
+
+jobs:
+  buildandpush:
+    name: Build and Push image to acr
+    runs-on: StutiRunnerAgent
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+          client-id: c960d18f-0982-4911-b05c-58f2d7ed267d
+          tenant-id: 0e1c81a8-6c88-4595-b678-60bce7c776f3
+          subscription-id: a9d94a25-6447-4066-bea9-a2f8668c6597
+
+      - name: ACR Login
+        run: az acr login --name AppDeployentRegistry
+
+      - name: Image Build
+        run: docker build -t moniuiimage MicroTodoUI
+
+      - name: Push image to ACR
+        run: docker push appdeployentregistry.azurecr.io/moniuiimage:v1
+

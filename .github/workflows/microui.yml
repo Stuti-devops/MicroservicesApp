@@ -2,7 +2,7 @@ name: Microservices CI/CD
 
 on:
   push:
-    branches: []
+    branches: [ main ]
 
 permissions: read-all
 

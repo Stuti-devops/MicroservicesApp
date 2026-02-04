@@ -2,7 +2,8 @@ name: Add task CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 permissions:
   id-token: write
@@ -10,28 +11,29 @@ permissions:
 
 jobs:
   buildandpush:
-    name: Build and Push image to acr
-    runs-on: [ self-hosted ]
+    name: Build and Push image to ACR
+    runs-on: self-hosted
 
     steps:
-      - name: Checkout
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Azure Login
-        uses: Azure/login@v2.3.0
+        uses: Azure/login@v2
         with:
           client-id: c960d18f-0982-4911-b05c-58f2d7ed267d
           tenant-id: 0e1c81a8-6c88-4595-b678-60bce7c776f3
           subscription-id: a9d94a25-6447-4066-bea9-a2f8668c6597
-          
 
-      - name: ACR Login
-        run: az acr login --name AppDeployentRegistry
+      - name: Login to Azure Container Registry
+        run: az acr login --name appdeployentregistry
 
-      - name: Image Build
-        run: docker build -t addtaskimage:v1 AddTaskTodoMicroservice
-      - name: tag image  
-        run : docker tag addtaskimage:v1 appdeployentregistry.azurecr.io/addtaskimage:v1 
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t appdeployentregistry.azurecr.io/addtaskimage:${{ github.run_number }} \
+            AddTaskTodoMicroservice
 
-      - name: Push image to ACR
-        run: docker push appdeployentregistry.azurecr.io/addtaskimage:v1
+      - name: Push Docker image to ACR
+        run: |
+          docker push appdeployentregistry.azurecr.io/addtaskimage:${{ github.run_number }}

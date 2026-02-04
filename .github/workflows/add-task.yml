@@ -30,8 +30,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build \
-            -t appdeployentregistry.azurecr.io/addtaskimage:${{ github.run_number }} \
+          docker build \ -t appdeployentregistry.azurecr.io/addtaskimage:${{ github.run_number }} \
             AddTaskTodoMicroservice
 
       - name: Push Docker image to ACR

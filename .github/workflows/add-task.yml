@@ -18,6 +18,15 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
+      - name: Debug workspace
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Repository files:"
+          ls
+          echo "Service folder files:"
+          ls AddTaskTodoMicroservice
+
       - name: Azure Login
         uses: Azure/login@v2
         with:
@@ -29,10 +38,7 @@ jobs:
         run: az acr login --name appdeployentregistry
 
       - name: Build Docker image
-        run: |
-          docker build \-t appdeployentregistry.azurecr.io/addtaskimage:${{ github.run_number }} \
-            AddTaskTodoMicroservice
+        run: docker build -t appdeployentregistry.azurecr.io/addtaskimage:${{ github.run_number }} -f AddTaskTodoMicroservice/Dockerfile AddTaskTodoMicroservice
 
       - name: Push Docker image to ACR
-        run: |
-          docker push appdeployentregistry.azurecr.io/addtaskimage:${{ github.run_number }}
+        run: docker push appdeployentregistry.azurecr.io/addtaskimage:${{ github.run_number }}

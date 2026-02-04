@@ -1,4 +1,4 @@
-name: Get task CI/CD
+name: Delete task CI/CD
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
           echo "Repository files:"
           ls
           echo "Service folder files:"
-          ls GetTasksTodoMicroservice
+          ls DeleteTaskTodoMicroservice
 
       - name: Azure Login
         uses: Azure/login@v2
@@ -38,7 +38,7 @@ jobs:
         run: az acr login --name appdeployentregistry
 
       - name: Build Docker image
-        run: docker build -t appdeployentregistry.azurecr.io/gettaskimage:${{ github.run_number }} -f GetTasksTodoMicroservice/Dockerfile GetTasksTodoMicroservice
+        run: docker build -t appdeployentregistry.azurecr.io/deletetaskimage:${{ github.run_number }} -f DeleteTaskTodoMicroservice/Dockerfile DeleteTaskTodoMicroservice
 
       - name: Push Docker image to ACR
-        run: docker push appdeployentregistry.azurecr.io/gettaskimage:${{ github.run_number }}
+        run: docker push appdeployentregistry.azurecr.io/deletetaskimage:${{ github.run_number }}
